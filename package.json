@@ -1,0 +1,26 @@
+{
+  "name": "shipment-client",
+  "version": "0.0.0",
+  "description": "Provides a standardized client wrapper to interface with shipment HTTP servers",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "jshint --verbose lib",
+    "test": "mocha --recursive -R spec",
+    "test-coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- --recursive && opn coverage/lcov-report/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "jshint": "^2.9.4",
+    "mocha": "^3.1.2",
+    "opn-cli": "^3.1.0"
+  },
+  "dependencies": {
+    "got": "^6.6.3",
+    "lodash": "^4.17.2",
+    "node-uuid": "^1.4.7",
+    "split2": "^2.1.0"
+  }
+}
