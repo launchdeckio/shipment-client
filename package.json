@@ -10,6 +10,7 @@
   },
   "keywords": [],
   "author": "",
+  "repository": "https://github.com/launchdeckio/shipment-client",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^3.15.0",
