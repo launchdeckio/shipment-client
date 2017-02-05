@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "got": "^6.6.3",
-    "lodash": "^4.17.2",
+    "lodash": "^4.17.4",
     "node-uuid": "^1.4.7",
-    "split2": "^2.1.0"
+    "split2": "^2.1.1"
   }
 }
