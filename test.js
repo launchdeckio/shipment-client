@@ -13,7 +13,11 @@ const closeP = server => new Promise((resolve, reject) => server.close(err => {
 const withClient = (serverOptions = {}, clientOptions = {}) => fn => {
     const server = shipment(serverOptions).serve();
     return Client.create('localhost:6565', clientOptions).then(client => {
-        return pTry(() => fn(client)).then(() => closeP(server));
+        return pTry(() => fn(client));
+    }).then(() => closeP(server), e => {
+        return closeP(server).then(() => {
+            throw e;
+        });
     });
 };
 
@@ -40,6 +44,23 @@ test.serial('no error when encryption is not required and the server doesn\'t pr
     return t.notThrows(withClient({encrypted: false}, {requireEncrypted: false})(noop));
 });
 
+test.serial('no error when encryption is required and the server provides encryption', t => {
+    return t.notThrows(withClient({encrypted: true}, {requireEncrypted: true})(noop));
+});
+
 test.serial('error when encryption is not required and the server doesn\'t provide encryption', t => {
     return t.throws(withClient({encrypted: false}, {requireEncrypted: true})(noop));
+});
+
+test.serial('call basic action w/ encryption', t => {
+    return withClient({encrypted: true})(client => {
+        const run = client.toUpper({message: 'hi!'});
+        return new Promise((resolve, reject) => {
+            run.on('emit', data => {
+                if (data.result) resolve(data.result.data);
+            });
+        }).then(result => {
+            t.is(result, 'HI!');
+        });
+    });
 });
