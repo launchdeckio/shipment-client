@@ -39,28 +39,3 @@ test.serial('call basic action', t => {
         });
     });
 });
-
-test.serial('no error when encryption is not required and the server doesn\'t provide encryption', t => {
-    return t.notThrows(withClient({encrypt: false}, {requireEncrypted: false})(noop));
-});
-
-test.serial('no error when encryption is required and the server provides encryption', t => {
-    return t.notThrows(withClient({encrypt: true}, {requireEncrypted: true})(noop));
-});
-
-test.serial('error when encryption is not required and the server doesn\'t provide encryption', t => {
-    return t.throws(withClient({encrypt: false}, {requireEncrypted: true})(noop));
-});
-
-test.serial('call basic action w/ encryption', t => {
-    return withClient({encrypt: true})(client => {
-        const run = client.toUpper({message: 'hi!'});
-        return new Promise((resolve, reject) => {
-            run.on('emit', data => {
-                if (data.result) resolve(data.result.data);
-            });
-        }).then(result => {
-            t.is(result, 'HI!');
-        });
-    });
-});
