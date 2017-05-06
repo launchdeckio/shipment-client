@@ -1,6 +1,6 @@
 {
   "name": "shipment-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides a standardized client wrapper to interface with shipment HTTP servers",
   "main": "index.js",
   "scripts": {
