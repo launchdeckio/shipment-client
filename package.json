@@ -3,6 +3,9 @@
   "version": "1.0.1",
   "description": "Provides a standardized client wrapper to interface with shipment HTTP servers",
   "main": "index.js",
+  "engines": {
+    "node": ">=8"
+  },
   "scripts": {
     "pretest": "eslint index.js lib",
     "test": "ava"
