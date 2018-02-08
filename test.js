@@ -1,7 +1,6 @@
 import test from 'ava';
 import Client from './';
 import shipment from 'shipment/test/fixtures/testShipment';
-import {delay} from 'bluebird';
 import pTry from 'p-try';
 import {noop} from 'lodash';
 
