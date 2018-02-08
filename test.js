@@ -11,7 +11,6 @@ const closeP = server => new Promise((resolve, reject) => server.close(err => {
 }));
 
 const withClient = (serverOptions = {}, clientOptions = {}) => fn => {
-    // const server = shipment().serve(serverOptions);
     const server = http(actions).listen();
     return Client.create('http://localhost:6565', clientOptions).then(client => {
         return pTry(() => fn(client));
