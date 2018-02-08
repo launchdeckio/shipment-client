@@ -14,7 +14,7 @@ $ npm install shipment-client
 
 const ShipmentClient = require('shipment-client');
 
-ShipmentClient.create('localhost:6565').then(client => {
+ShipmentClient.create('http://localhost:6565').then(client => {
    
     client.someAction({foo: bar});
 });
