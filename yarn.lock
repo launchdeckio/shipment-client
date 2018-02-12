@@ -1830,9 +1830,9 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
-got@^8.0.3:
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/got/-/got-8.0.3.tgz#15d038e8101f89e93585d1639d9c49e8a55ae6bc"
+got@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/got/-/got-8.1.0.tgz#353a8cdf85ef8f958a38de7729610c43c179141b"
   dependencies:
     "@sindresorhus/is" "^0.7.0"
     cacheable-request "^2.1.1"
@@ -2909,10 +2909,6 @@ p-timeout@^2.0.1:
   dependencies:
     p-finally "^1.0.0"
 
-p-try@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/p-try/-/p-try-1.0.0.tgz#cbc79cdbaf8fd4228e13f621f2b1a237c1b207b3"
-
 package-hash@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/package-hash/-/package-hash-1.2.0.tgz#003e56cd57b736a6ed6114cc2b81542672770e44"
@@ -3490,12 +3486,13 @@ shebang-regex@^1.0.0:
 
 "shipment@https://github.com/launchdeckio/shipment#reship":
   version "12.0.0-2"
-  resolved "https://github.com/launchdeckio/shipment#4ae53e9bd4d82d0252bfe9056457c3f801b26377"
+  resolved "https://github.com/launchdeckio/shipment#96956539c160504861512a739a86f15f1284c2c7"
   dependencies:
     body-parser "^1.18.2"
     express "^4.16.2"
     lodash "^4.17.5"
     morgan "^1.9.0"
+    serialize-error "^2.1.0"
     stream-line-wrapper "^0.1.1"
     through2 "^2.0.3"
     yargs "^11.0.0"

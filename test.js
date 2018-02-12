@@ -2,7 +2,6 @@ import test from 'ava';
 import Client from './';
 import actions from 'shipment/test/fixtures/actions';
 import {http} from 'shipment';
-import pTry from 'p-try';
 import {noop} from 'lodash';
 
 const closeP = server => new Promise((resolve, reject) => server.close(err => {
@@ -10,15 +9,14 @@ const closeP = server => new Promise((resolve, reject) => server.close(err => {
     resolve();
 }));
 
-const withClient = (serverOptions = {}, clientOptions = {}) => fn => {
+const withClient = (serverOptions = {}, clientOptions = {}) => async fn => {
     const server = http(actions).listen();
-    return Client.create('http://localhost:6565', clientOptions).then(client => {
-        return pTry(() => fn(client));
-    }).then(() => closeP(server), e => {
-        return closeP(server).then(() => {
-            throw e;
-        });
-    });
+    const client = await Client.create('http://localhost:6565', clientOptions);
+    try {
+        await fn(client);
+    } finally {
+        await closeP(server);
+    }
 };
 
 test.serial('adds magic methods', t => {
@@ -27,14 +25,31 @@ test.serial('adds magic methods', t => {
     });
 });
 
-test.serial('call basic action', t => {
-    return withClient()(client => {
-        return new Promise((resolve, reject) => {
+test.serial('call basic action (receiver)', t => {
+    return withClient()(async client => {
+        const result = await new Promise((resolve, reject) => {
             client.toUpper({message: 'hi!'}, evt => {
                 if (evt.result) resolve(evt.result.data);
             });
-        }).then(result => {
-            t.is(result, 'HI!');
         });
+        t.is(result, 'HI!')
     });
+});
+
+test.serial('call basic action (return value)', t => {
+    return withClient()(async client => {
+        const result = await client.toUpper({message: 'hi!'});
+        t.is(result, 'HI!')
+    });
+});
+
+test.serial('throws error', async t => {
+    try {
+        await withClient()(async client => {
+            await client.error();
+        });
+        t.fail();
+    } catch (e) {
+        t.is(e.message, 'something went wrong!');
+    }
 });
